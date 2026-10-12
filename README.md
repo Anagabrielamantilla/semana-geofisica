@@ -6,6 +6,6 @@ El sitio público muestra la versión oficial de las tareas. Los visitantes no e
 
 ## Publicación
 
-GitHub Pages sirve `dist/` desde la rama `gh-pages`. Para actualizar, editar la fuente del tablero en el chat, ejecutar `build.py` y publicar el contenido de `dist/` en `gh-pages`.
+GitHub Pages sirve `dist/` desde la rama `gh-pages`. Para actualizar, editar la fuente del tablero en el chat y ejecutar `deploy.py` con Python. El script reconstruye y publica ambas ramas.
 
 El archivo `shared-view.html` es la fuente de la vista publicada. `build.py` conserva la fuente interactiva original y genera la vista compartida sin edición local.

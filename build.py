@@ -7,7 +7,9 @@ from datetime import datetime, timezone
 PROJECT = Path(__file__).resolve().parent
 SOURCE = Path('/Users/anagabriela/.codex/visualizations/2026/10/12/01a12df7-f398-77b3-b54a-3b3a4daf7082/semana-geofisica.html')
 RENDER = Path('/Users/anagabriela/.codex/plugins/cache/openai-bundled/visualize/1.0.47/skills/visualize/scripts/render.py')
-fragment = SOURCE.read_text()
+if SOURCE.exists():
+    (PROJECT / 'board-source.html').write_text(SOURCE.read_text())
+fragment = (PROJECT / 'board-source.html').read_text()
 # Shared visitors always see the published data, without browser-local overrides.
 fragment = re.sub(r'<details>.*?</details>', '', fragment, flags=re.S)
 fragment = fragment.replace("window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)apply(e.detail.globals.widgetState);});", '')

@@ -1,0 +1,59 @@
+<div id="geo-week">
+<style>
+#geo-week{color-scheme:light;--font-size-base:18px;--background:#ffffff;--foreground:#24343b;--muted-foreground:#627078;--card:#f3f6f6;--card-foreground:#24343b;--popover:#ffffff;--popover-foreground:#24343b;--border:#e1e8e8;--input:#ffffff;--secondary:#f3f6f6;--secondary-foreground:#24343b;--muted:#eaf0f0;background:var(--background);font-size:var(--font-size-base);padding:20px;box-sizing:border-box}
+#geo-week{--geo-teal:light-dark(#087f83,#71ded4);--geo-violet:light-dark(#7155b4,#c5adff);--geo-amber:light-dark(#986310,#f4ca7b);--geo-green:light-dark(#26794d,#8adbad);--primary:var(--geo-teal);--primary-foreground:light-dark(#ffffff,#123633);--accent:light-dark(#e4f5f1,#203c3a);--accent-foreground:var(--geo-teal);--ring:var(--geo-teal);--viz-series-1:var(--geo-teal)}
+#geo-week .mast h1{color:var(--geo-teal)}#geo-week .mast .eyebrow{color:var(--geo-violet)}#geo-week .mast .date{color:var(--geo-violet)}#geo-week .task-name{color:var(--geo-teal)}#geo-week .status{padding:6px 10px;border-radius:20px;background:color-mix(in srgb,var(--geo-violet) 11%,transparent);color:var(--geo-violet)}#geo-week .status.complete{background:color-mix(in srgb,var(--geo-green) 13%,transparent);color:var(--geo-green)}#geo-week .status.working{background:color-mix(in srgb,var(--geo-teal) 12%,transparent);color:var(--geo-teal)}#geo-week .status.pending{background:color-mix(in srgb,var(--geo-amber) 13%,transparent);color:var(--geo-amber)}#geo-week .status .dot{background:currentColor}#geo-week .summary{margin-top:20px}#geo-week .summary-value{color:var(--geo-teal)}#geo-week .past-date{color:var(--geo-amber)}#geo-week .ornament{height:3px;width:110px;background:linear-gradient(90deg,var(--geo-teal),var(--geo-violet),var(--geo-amber));margin-bottom:18px}
+#geo-week{color:var(--foreground)}#geo-week .mast{padding:24px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--border)}#geo-week .mast h1{margin:6px 0}#geo-week .eyebrow{letter-spacing:.16em;text-transform:uppercase;color:var(--muted-foreground)}#geo-week .mast .date{margin-left:auto}#geo-week .overview{padding:20px 0;display:flex;gap:24px;flex-wrap:wrap;align-items:center}#geo-week .overview .progress{flex:1;min-width:100px}#geo-week .task-name{font-weight:500}#geo-week details{margin-top:6px}#geo-week summary{color:var(--muted-foreground)}#geo-week .edit-grid{display:grid;gap:12px;margin:14px 0;min-width:220px}#geo-week .note{margin-top:5px;color:var(--muted-foreground)}#geo-week .status{display:inline-flex;gap:6px;align-items:center}#geo-week .dot{width:7px;height:7px;border-radius:50%;background:var(--muted-foreground)}#geo-week .complete .dot{background:var(--green)}#geo-week .working .dot{background:var(--blue)}#geo-week .table td{vertical-align:top}#geo-week .deadline{min-width:125px}#geo-week .index{color:var(--muted-foreground)}
+</style>
+<div class="mast"><div><div class="ornament" aria-hidden="true"></div><div class="eyebrow text-small">Coordinación · UIS · 2026</div><h1>Semana de la Geofísica</h1><span class="text-muted">Agenda de ejecución</span></div><div class="date"><i data-lucide="calendar-days" aria-hidden="true"></i> 3–7 noviembre 2026</div></div>
+<div class="viz-grid summary"><div class="card viz-stat"><div class="text-small">Tareas del evento</div><div class="viz-stat-value summary-value">21</div></div><div class="card viz-stat"><div class="text-small">Completadas</div><div id="geo-done" class="viz-stat-value summary-value">1</div></div><div class="card viz-stat"><div class="text-small">Estado por confirmar</div><div id="geo-unknown" class="viz-stat-value summary-value">18</div></div></div>
+<div class="overview" aria-live="polite"><span id="geo-count" class="tabular-nums"></span><div id="geo-progress" class="progress" role="progressbar" aria-label="Tareas completadas" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar"></div></div><span id="geo-pct" class="tabular-nums"></span></div>
+<div class="table-responsive"><table class="table"><thead><tr><th scope="col">Tarea / detalle</th><th scope="col">Responsable</th><th scope="col">Estado</th><th scope="col">Fecha límite</th></tr></thead><tbody id="geo-rows"></tbody></table></div>
+<div class="text-small text-muted" id="geo-foot">Base: notas del 9 de octubre · Fechas relativas confirmadas · Reserva de Eduardo Rosello unificada</div>
+<script>
+(()=>{
+const root=document.getElementById('geo-week');
+const data=[
+{id:1,title:'Reserva de Eduardo Rosello',owner:'Por asignar',note:'Aparecía dos veces en las notas; se conserva una sola tarea.'},
+{id:2,title:'Gestionar invitación a Gildardo Meneses',owner:'Por asignar',note:'Posible invitado al evento; participación por confirmar.'},
+{id:3,title:'Retirar el semillero HDSP del evento',owner:'Por asignar'},
+{id:4,title:'Publicidad del pitch de tesis',owner:'José Barrios',note:'Definir obsequio: bono de Tienda UIS o Geotienda.'},
+{id:5,title:'Actividades y rifas de la Geoferia',owner:'Alvercy y Kevin',note:'Rifar libros y escalas de la Geoferia del año pasado.'},
+{id:6,title:'Flyer de la sesión de networking',owner:'Ana y Paula',status:'Pendiente',note:'El flyer aún falta.'},
+{id:7,title:'Cronograma y reserva de Bpro',owner:'Ana · Diego',note:'Ana: enviar correo indicando que todos estarán en Bpro. Diego: reservar.'},
+{id:8,title:'Enviar el reto interdisciplinario',owner:'Paul',date:'2026-10-14',note:'Envío previsto para el miércoles 14 de octubre.'},
+{id:9,title:'Invitar a ponentes al reto interdisciplinario',owner:'Ana'},
+{id:10,title:'Salida de campo: Mesa de los Santos',owner:'Ana y Paula',note:'Sin novedades reportadas.'},
+{id:11,title:'Correo de plazo extraordinario para resúmenes',owner:'Por asignar',date:'2026-10-10',time:'12:00',note:'Fecha límite de recepción: sábado 10, mediodía; no se indicó hora límite para enviar el correo. Incluir enlaces y explicar la extensión excepcional respecto al plazo anunciado en los videos. Comunicar que el comité determinó apoyar al autor principal por trabajo inscrito.'},
+{id:12,title:'Solicitar cotización a Megamusic',owner:'Ana y Anita',date:'2026-10-09',note:'Se podía solicitar el viernes 9; confirmar si se hizo.'},
+{id:13,title:'Introducción del evento al profesor',owner:'Ana',note:'Precisar profesor y formato de presentación.'},
+{id:14,title:'Gestión de Casa Aramburo',owner:'Ana',note:'Precisar solicitud.'},
+{id:15,title:'Solicitar espacio para Geoferia y carpas',owner:'Ana',note:'Espacio detrás de Ingeniería Electrónica; carpas de Megamusic.'},
+{id:16,title:'Volver a solicitar el sótano del Jorge Bautista',owner:'Ana',status:'Pendiente',note:'Confirmar nombre completo del edificio; las notas dicen «Jorge bautista venga».'},
+{id:17,title:'Asignar tareas a Diego',owner:'Por asignar'},
+{id:18,title:'Solicitudes a Santiago, Nohelia, Esteban y David',owner:'Por asignar',note:'Precisar qué se les pide. Son destinatarios; no se ha indicado quién realiza la gestión.'},
+{id:19,title:'Coordinar traslado y carga de materiales',owner:'Diego y Ana · Carlos Mogollón',note:'Incluir al coordinador de logística y crear grupo de coordinación.'},
+{id:20,title:'Novedad de registro VIE',owner:'Por confirmar',status:'Completado',note:'Marcada como «done» en las notas.'},
+{id:21,title:'Verificar recepción de pósteres',owner:'Por asignar',date:'2026-10-10',time:'12:00',note:'Revisar los enviados el sábado antes del mediodía; confirmar si este sábado corresponde al 10 de octubre.',tentative:true}
+].map(t=>({status:'Por confirmar',date:'',time:'',note:'',...t}));
+let tasks=data.map(t=>({...t}));
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const statuses=['Por confirmar','Pendiente','En curso','Completado'];
+function apply(s){const saved=s?.modelContent?.tasks;if(Array.isArray(saved))tasks=data.map(t=>({...t,...saved.find(v=>v.id===t.id)}));render();}
+function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{event:'Semana de la Geofísica',eventDates:'2026-11-03/2026-11-07',tasks},privateContent:null}).catch(()=>{});}
+function render(){
+const done=tasks.filter(t=>t.status==='Completado').length,pct=Math.round(done/tasks.length*100);
+root.querySelector('#geo-done').textContent=done;root.querySelector('#geo-unknown').textContent=tasks.filter(t=>t.status==='Por confirmar').length;
+root.querySelector('#geo-count').textContent=done+' / '+tasks.length+' completadas';root.querySelector('#geo-pct').textContent=pct+'%';root.querySelector('#geo-progress').setAttribute('aria-valuenow',pct);root.querySelector('.progress-bar').style.width=pct+'%';
+root.querySelector('#geo-rows').innerHTML=tasks.map(t=>{
+const date=t.date?new Intl.DateTimeFormat('es-CO',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(t.date+'T12:00:00Z')):'Por definir';
+const old=t.date&&t.date<'2026-10-11'&&t.status!=='Completado';
+return `<tr><td><span class="index text-small">${String(t.id).padStart(2,'0')} · </span><span class="task-name">${esc(t.title)}</span>${t.note?`<div class="note text-small">${esc(t.note)}</div>`:''}<details><summary>Editar tarea</summary><div class="edit-grid"><label class="form-label">Responsable<input class="form-control" data-id="${t.id}" data-field="owner" value="${esc(t.owner)}"></label><label class="form-label">Estado<select class="form-select" data-id="${t.id}" data-field="status">${statuses.map(s=>`<option ${s===t.status?'selected':''}>${s}</option>`).join('')}</select></label><label class="form-label">Fecha límite<input type="date" class="form-control" data-id="${t.id}" data-field="date" value="${t.date}"></label><label class="form-label">Hora límite<input type="time" class="form-control" data-id="${t.id}" data-field="time" value="${t.time}"></label><label class="form-label">Notas<textarea class="form-control" data-id="${t.id}" data-field="note">${esc(t.note)}</textarea></label></div></details></td><td>${esc(t.owner)}</td><td><span class="status ${t.status==='Completado'?'complete':t.status==='En curso'?'working':t.status==='Pendiente'?'pending':''}"><span class="dot" aria-hidden="true"></span>${t.status}</span></td><td class="deadline">${date}${t.time?`<div class="text-small">${t.time} · Colombia</div>`:''}${t.tentative?'<div class="text-small">Fecha por confirmar</div>':''}${old?'<div class="text-small past-date">Plazo pasado · verificar cierre</div>':''}</td></tr>`;
+}).join('');
+}
+root.addEventListener('change',e=>{const field=e.target.dataset.field;if(!field)return;const t=tasks.find(t=>t.id===Number(e.target.dataset.id));t[field]=e.target.value;if(field==='date')t.tentative=false;save();render();});
+window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)apply(e.detail.globals.widgetState);});
+apply(window.openai?.widgetState);
+})();
+</script>
+</div>
