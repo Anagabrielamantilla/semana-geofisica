@@ -11,7 +11,7 @@ if SOURCE.exists():
     (PROJECT / 'board-source.html').write_text(SOURCE.read_text())
 fragment = (PROJECT / 'board-source.html').read_text()
 # Shared visitors always see the published data, without browser-local overrides.
-fragment = re.sub(r'<details>.*?</details>', '', fragment, flags=re.S)
+fragment = re.sub(r'<details class="edit-task">.*?</details>', '', fragment, flags=re.S)
 fragment = fragment.replace("window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)apply(e.detail.globals.widgetState);});", '')
 fragment = fragment.replace('apply(window.openai?.widgetState);', 'apply(null);')
 fragment = fragment.replace('Base: notas del 9 de octubre · Fechas relativas confirmadas · Reserva de Eduardo Rosello unificada', 'Versión compartida · Actualizaciones automáticas · Horario de Colombia')
